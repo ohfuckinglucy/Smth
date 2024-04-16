@@ -19,3 +19,4 @@ git update-index --chmod=+x index.html поставить доступ для ю
 git --outhor='Euthanasia <errordings@gmail.com>' --date'...'
 
 git reset HEAD <имя файла> для игнора
+dfs
