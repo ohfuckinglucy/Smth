@@ -1,0 +1,3 @@
+/home/ia331s26/prog/13/second/build/CMakeFiles/main.dir
+/home/ia331s26/prog/13/second/build/CMakeFiles/edit_cache.dir
+/home/ia331s26/prog/13/second/build/CMakeFiles/rebuild_cache.dir
