@@ -16,3 +16,4 @@ git commit для финиша
 git config core.fileMode false на файлы файловой системы смотреть не надо
 git update-index --chmod=+x index.html поставить доступ для юникса из под винды
 так же этот флаг можно юзать для git add
+git --outhor='Euthanasia <errordings@gmail.com>' --date'...'
