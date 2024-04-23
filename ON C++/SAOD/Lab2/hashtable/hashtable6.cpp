@@ -28,8 +28,8 @@ int main() {
 
     for (int i = 0; i < 200000; ++i) {
         uint32_t collisions_kr = 0, collisions_djb = 0;
-        choosehashtab_add(hashtab_kr, words[i], i, kr_hash, collisions_kr); // Добавление слова в хэш-таблицу для kr_hash
-        choosehashtab_add(hashtab_djb, words[i], i, djb_hash, collisions_djb); // Добавление слова в хэш-таблицу для djb_hash
+        // choosehashtab_add(hashtab_kr, words[i], i, kr_hash, collisions_kr); // Добавление слова в хэш-таблицу для kr_hash
+        // choosehashtab_add(hashtab_djb, words[i], i, djb_hash, collisions_djb); // Добавление слова в хэш-таблицу для djb_hash
 
         if ((i + 1) % 10000 == 0) {
             string w;

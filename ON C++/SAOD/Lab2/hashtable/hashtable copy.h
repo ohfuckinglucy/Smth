@@ -5,7 +5,7 @@
 #include <chrono>
 
 using namespace std;
-int col = 0;
+
 struct ListNode {
     string key;
     uint32_t value;
@@ -94,12 +94,12 @@ uint32_t kr_hash(const string& key, uint32_t table_size) {
     return hashval % table_size;
 }
 
-uint32_t add_hash(const string& key, uint32_t table_size) {
-    uint32_t hash = 0;
+uint32_t djb_hash(const string& key, uint32_t table_size) {
+    uint32_t hashval = 5381;
     for (char c : key) {
-        hash += static_cast<uint32_t>(c);
+        hashval = ((hashval << 5) + hashval) + c;
     }
-    return hash;
+    return hashval % table_size;
 }
 
 
@@ -114,62 +114,34 @@ double measure_time(HashTable& hashtab, const string& key, uint32_t (*hash_func)
 
 void choosehashtab_add(HashTable& hashtab, const string& key, uint32_t value, uint32_t (*hash_func)(const string&, uint32_t), uint32_t& collisions) {
     uint32_t index = hash_func(key, hashtab.size());
-
-    // Проверяем, пуст ли текущий "бакет" (bucket)
-    if (hashtab[index] == nullptr) {
-        // Создаем новый узел и добавляем его в "бакет"
-        hashtab[index] = new (std::nothrow) ListNode(key, value);
-        if (hashtab[index] == nullptr) {
-            cerr << "Не удалось выделить память для нового узла." << endl;
-            return;
-        }
-    } else {
-        // "Бакет" не пуст, просматриваем связный список, чтобы найти правильную позицию
+    
+    if (hashtab[index] != nullptr) {
+        // Цепочка уже существует, добавляем узел в конец цепочки
         ListNode* current = hashtab[index];
-        while (current != nullptr) {
+        while (current->next != nullptr) {
             if (current->key == key) {
-                // Узел с таким ключом уже существует
-                cerr << "Узел с ключом '" << key << "' уже существует." << endl;
-                // Увеличиваем счетчик коллизий и возвращаемся
-                col += 1;
-                return;
+                collisions++;
+                return; // Уже существует узел с таким ключом, ничего не делаем
             }
             current = current->next;
         }
-        // Попробуем выделить память для нового узла
-        ListNode* newNode = new (std::nothrow) ListNode(key, value);
-        if (newNode == nullptr) {
-            cerr << "Не удалось выделить память для нового узла." << endl;
-            return;
-        }
-        // Добавляем новый узел в конец связного списка "бакета"
-        current = hashtab[index];
-        while (current->next != nullptr) {
-            current = current->next;
-        }
-        current->next = newNode;
-        // Увеличиваем счетчик коллизий
-        col+=1;
+        current->next = new ListNode(key, value);
+    } else {
+        // Создаем новую цепочку
+        hashtab[index] = new ListNode(key, value);
     }
 }
 
 
-
 uint32_t count_collisions(const HashTable& hashtab) {
     uint32_t collisions = 0;
-    for (const auto& bucket : hashtab) {
-        ListNode* current = bucket;
-        if (current != nullptr) {
-            // Count the number of nodes in the linked list
-            uint32_t count = 0;
-            while (current != nullptr) {
-                count++;
-                current = current->next;
+    for (const auto& node : hashtab) {
+        ListNode* current = node;
+        while (current != nullptr) {
+            if (current->next != nullptr) {
+                collisions++;
             }
-            // If count is greater than 1, it indicates a collision
-            if (count > 1) {
-                collisions += (count - 1);
-            }
+            current = current->next;
         }
     }
     return collisions;
