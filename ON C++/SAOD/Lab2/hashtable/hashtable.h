@@ -5,7 +5,7 @@
 #include <chrono>
 
 using namespace std;
-int col = 0;
+
 struct ListNode {
     string key;
     uint32_t value;
@@ -95,11 +95,11 @@ uint32_t kr_hash(const string& key, uint32_t table_size) {
 }
 
 uint32_t add_hash(const string& key, uint32_t table_size) {
-    uint32_t hash = 0;
+    int32_t hash = 0;
     for (char c : key) {
-        hash += static_cast<uint32_t>(c);
+        hash = (hash * 31) + static_cast<uint32_t>(c);
     }
-    return hash;
+    return hash % table_size;
 }
 
 
@@ -131,7 +131,7 @@ void choosehashtab_add(HashTable& hashtab, const string& key, uint32_t value, ui
                 // Узел с таким ключом уже существует
                 cerr << "Узел с ключом '" << key << "' уже существует." << endl;
                 // Увеличиваем счетчик коллизий и возвращаемся
-                col += 1;
+                collisions += 1;
                 return;
             }
             current = current->next;
@@ -148,29 +148,7 @@ void choosehashtab_add(HashTable& hashtab, const string& key, uint32_t value, ui
             current = current->next;
         }
         current->next = newNode;
-        // Увеличиваем счетчик коллизий
-        col+=1;
+        // Увеличиваем счетчик коллизий, если новый ключ не совпадает с существующими
+        collisions += 1;
     }
-}
-
-
-
-uint32_t count_collisions(const HashTable& hashtab) {
-    uint32_t collisions = 0;
-    for (const auto& bucket : hashtab) {
-        ListNode* current = bucket;
-        if (current != nullptr) {
-            // Count the number of nodes in the linked list
-            uint32_t count = 0;
-            while (current != nullptr) {
-                count++;
-                current = current->next;
-            }
-            // If count is greater than 1, it indicates a collision
-            if (count > 1) {
-                collisions += (count - 1);
-            }
-        }
-    }
-    return collisions;
 }
