@@ -63,10 +63,12 @@ int main(int argc, char *argv[]) {
     // Записываем зашифрованный текст в выходной файл
     fwrite(text, sizeof(char), input_file_size, output_file);
 
-    // Дешифруем текст (можно закомментировать, чтобы проверить работу шифрования)
+    // Дешифруем текст
     encrypt_decrypt(text, key, input_file_size, input_file_size);
+    // Раскомментируйте чтобы увидеть расшифрованный текст.
 
-    printf("Дешифрованный текст:\n%s\n", text);
+
+    printf("Шифрованный текст:\n%s\n", text);
 
     // Освобождаем выделенную память и закрываем файлы
     fclose(input_file);
