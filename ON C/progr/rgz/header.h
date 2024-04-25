@@ -1,0 +1,1 @@
+void encrypt_decrypt(char *text, char *key, int text_length, int key_length);
