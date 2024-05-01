@@ -89,18 +89,27 @@ double wtime() {
 uint32_t kr_hash(const string& key, uint32_t table_size) {
     uint32_t hashval = 0;
     for (char ch : key) {
-        hashval = (hashval * 131) + ch;
+        hashval = ((hashval << 5) + hashval) + ch; // hashval * 131 = (hashval << 7) - hashval
     }
     return hashval % table_size;
 }
 
-uint32_t djb_hash(const string& key, uint32_t table_size) {
-    uint32_t hashval = 5381;
+
+uint32_t add_hash(const string& key, uint32_t table_size) {
+    uint32_t hashval = 0;
     for (char c : key) {
-        hashval = ((hashval << 5) + hashval) + c;
+        hashval = (hashval << 4) + c;
+        uint32_t x;
+        if ((x = hashval & 0xF0000000L) != 0) {
+            hashval ^= (x >> 24);
+            hashval &= ~x;
+        }
     }
     return hashval % table_size;
 }
+
+
+
 
 
 double measure_time(HashTable& hashtab, const string& key, uint32_t (*hash_func)(const string&, uint32_t)) {

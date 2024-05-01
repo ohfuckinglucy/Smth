@@ -44,9 +44,6 @@ int main() {
             t_kr = measure_time(hashtab_kr, w, kr_hash); // Измерение времени для kr_hash
             t_djb = measure_time(hashtab_djb, w, djb_hash); // Измерение времени для djb_hash
 
-            collisions_kr = count_collisions(hashtab_kr); // Подсчет коллизий для kr_hash
-            collisions_djb = count_collisions(hashtab_djb); // Подсчет коллизий для djb_hash
-
             cout << i + 1 << "\t\t\t" << t_kr << "\t\t\t" << collisions_kr << "\t\t\t" << t_djb << "\t\t\t" << collisions_djb << endl;
         }
     }

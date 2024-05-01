@@ -94,12 +94,12 @@ uint32_t kr_hash(const string& key, uint32_t table_size) {
     return hashval % table_size;
 }
 
-uint32_t djb_hash(const string& key, uint32_t table_size) {
-    uint32_t hashval = 5381;
+uint32_t add_hash(const string& key, uint32_t table_size) {
+    int32_t hash = 0;
     for (char c : key) {
-        hashval = ((hashval << 5) + hashval) + c;
+        hash = (hash * 31) + static_cast<uint32_t>(c);
     }
-    return hashval % table_size;
+    return hash % table_size;
 }
 
 
