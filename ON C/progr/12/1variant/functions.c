@@ -2,6 +2,8 @@
 #include <math.h>
 #include "point.h"
 
+// проверка на принадлежность
+
 void xy(T_t t1, T_t t2) {
     if (t1.x == t2.x && t1.y == t2.y) {
         printf("Точка параллельна как оси X, так и оси Y\n");
@@ -13,6 +15,8 @@ void xy(T_t t1, T_t t2) {
         printf("Точка не параллельна ни одной оси\n");
     }
 }
+
+// определяет площадь треугольника образованного тремя точками
 
 void st(T_t t1, T_t t2, T_t t3) {
     float a = sqrt(pow(t2.x - t1.x, 2) + pow(t2.y - t1.y, 2));
