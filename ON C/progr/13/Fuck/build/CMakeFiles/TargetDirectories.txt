@@ -1,0 +1,3 @@
+/home/tenebre/prog/ON C/progr/13/Fuck/build/CMakeFiles/main.dir
+/home/tenebre/prog/ON C/progr/13/Fuck/build/CMakeFiles/edit_cache.dir
+/home/tenebre/prog/ON C/progr/13/Fuck/build/CMakeFiles/rebuild_cache.dir

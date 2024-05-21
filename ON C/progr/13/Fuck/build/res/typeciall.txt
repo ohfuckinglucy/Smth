@@ -1,0 +1,20 @@
+Метод сортировки        Количество элементов    Количество пересылок    Количество сравнений
+BinaryInsertionSort             100                     2183                    3096
+BinaryInsertionSort             200                     12547                   15409
+BinaryInsertionSort             300                     34404                   40403
+BinaryInsertionSort             400                     75927                   86169
+BinaryInsertionSort             500                     136752                  152341
+
+Метод сортировки        Количество элементов    Количество пересылок    Количество сравнений
+InsertionSort                   100                     2289                    2289
+InsertionSort                   200                     12619                   12619
+InsertionSort                   300                     35575                   35575
+InsertionSort                   400                     76847                   76847
+InsertionSort                   500                     140170                  140170
+
+Метод сортировки        Количество элементов    Количество пересылок    Количество сравнений
+ShellSort                       100                     603                     381
+ShellSort                       200                     1971                    1255
+ShellSort                       300                     4286                    2721
+ShellSort                       400                     7526                    4823
+ShellSort                       500                     11200                   7085
